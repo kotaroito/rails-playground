@@ -27,7 +27,6 @@ class BooksController < ApplicationController
     @book = Book.new(book_params)
 
     respond_to do |format|
-      logger.debug "test" if @book.valid?
 
       if @book.save
         format.html { return redirect_to @book, notice: 'Book was successfully created.' }

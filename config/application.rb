@@ -14,5 +14,17 @@ module Books
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
+
+    # Log
+    config.log_level = :info
+    config.logger = ActFluentLoggerRails::Logger.new
+    config.lograge.enabled = true
+    config.lograge.formatter = Lograge::Formatters::Json.new
+    config.lograge.custom_options = lambda do |event|
+      exceptions = %w(controller action format id)
+      {
+        params: event.payload[:params].except(*exceptions)
+      }
+    end
   end
 end

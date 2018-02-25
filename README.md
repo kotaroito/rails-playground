@@ -1,7 +1,43 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Features
+
+Write some features...
+
+## System dependencies
+
+ - mysql
+ - td-agent
+
+## Configuration
+
+### td-agent
+
+It requires td-agent installed at local for "act-fluent-logger-rails" gem.
+An example of td-agent.conf follows.
+
+```
+<filter rails>
+  @type parser
+  key_name messages
+  <parse>
+    @type json
+  </parse>
+</filter>
+
+<filter rails>
+  @type record_transformer
+  remove_keys location 
+</filter>
+
+<match rails>
+  @type copy
+  <store>
+    @type stdout
+  </store>
+</match>
+```
+
 
 Things you may want to cover:
 
